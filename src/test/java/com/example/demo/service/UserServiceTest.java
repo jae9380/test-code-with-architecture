@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.CertificationCodeNotMatchedException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.UserStatus;
 import com.example.demo.model.dto.UserCreateDto;
+import com.example.demo.model.dto.UserUpdateDto;
 import com.example.demo.repository.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -91,6 +93,60 @@ class UserServiceTest {
         assertThat(result.getId()).isNotNull();
         assertThat(result.getStatus()).isEqualTo(UserStatus.PENDING);
 //        assertThat(result.getCertificationCode()).isEqualTo();
+    }
 
+    @Test
+    void userUpdateDto_유저_생성() {
+//        given
+        UserUpdateDto dto = UserUpdateDto.builder()
+                .address("Daegu")
+                .nickname("Jae")
+                .build();
+
+//        when
+         userService.update(1,dto);
+
+//        then
+        UserEntity result = userService.getById(1);
+        assertThat(result.getId()).isNotNull();
+        assertThat(result.getNickname()).isEqualTo("Jae");
+        assertThat(result.getAddress()).isEqualTo("Daegu");
+//        TODO: 로그인 시 랜덤으로 생성되는 CertificationCode 확인
+//        assertThat(result.getCertificationCode()).isEqualTo();
+    }
+
+    @Test
+    void 유저가_로그인을_하면_마지막_로그인_시간_갱신() {
+//        given
+
+//        when
+        userService.login(1);
+
+//        then
+        UserEntity result = userService.getById(1);
+        assertThat(result.getLastLoginAt()).isGreaterThan(0l);
+//        TODO: 마지막 로그인 시간 확인
+    }
+
+    @Test
+    void PENDING_상태의_유저는_인증을_통해_ACTIVE로_갱신 () {
+//        given
+
+//        when
+        userService.verifyEmail(2,"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaab");
+
+//        then
+        UserEntity result = userService.getById(2);
+        assertThat(result.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    }
+
+    @Test
+    void PENDING_상태의_유저_인증_실패 () {
+//        given
+//        when
+//        then
+        assertThatThrownBy(()-> {
+            userService.verifyEmail(2,"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa");
+        }).isInstanceOf(CertificationCodeNotMatchedException.class);
     }
 }
