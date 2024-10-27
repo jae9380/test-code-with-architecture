@@ -1,16 +1,22 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.UserStatus;
+import com.example.demo.model.dto.UserCreateDto;
 import com.example.demo.repository.UserEntity;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @SqlGroup({
@@ -22,6 +28,8 @@ class UserServiceTest {
 
     @Autowired
     private UserService userService;
+    @MockBean
+    private JavaMailSender javaMailSender;
 
     @Test
     void getByEmail_ACVIVE_상태인_유저_불러오기() {
@@ -65,4 +73,24 @@ class UserServiceTest {
 
     }
 
+    @Test
+    void userCreateDto_유저_생성() {
+//        given
+        UserCreateDto dto = UserCreateDto.builder()
+                .email("ljy531@naver.com")
+                .address("Andong")
+                .nickname("Lee")
+                .build();
+
+        BDDMockito.doNothing().when(javaMailSender).send(any(SimpleMailMessage.class));
+
+//        when
+        UserEntity result = userService.create(dto);
+
+//        then
+        assertThat(result.getId()).isNotNull();
+        assertThat(result.getStatus()).isEqualTo(UserStatus.PENDING);
+//        assertThat(result.getCertificationCode()).isEqualTo();
+
+    }
 }
