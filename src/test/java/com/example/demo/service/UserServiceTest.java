@@ -25,7 +25,6 @@ import static org.mockito.ArgumentMatchers.any;
         @Sql(value = "/user-service-test-data.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(value = "/delete-all-data.sql",executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-
 class UserServiceTest {
 
     @Autowired
