@@ -1,7 +1,7 @@
 package com.example.demo.post.controller;
 
 import com.example.demo.post.controller.response.PostResponse;
-import com.example.demo.post.dto.PostUpdateDto;
+import com.example.demo.post.domain.PostUpdate;
 import com.example.demo.post.entity.PostEntity;
 import com.example.demo.post.service.PostService;
 import com.example.demo.user.controller.UserController;
@@ -32,10 +32,10 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdateDto postUpdateDto) {
+    public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
         return ResponseEntity
             .ok()
-            .body(toResponse(postService.update(id, postUpdateDto)));
+            .body(toResponse(postService.update(id, postUpdate)));
     }
 
     public PostResponse toResponse(PostEntity postEntity) {

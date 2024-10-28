@@ -1,6 +1,6 @@
 package com.example.demo.post.controller;
 
-import com.example.demo.post.dto.PostCreateDto;
+import com.example.demo.post.domain.PostCreate;
 import com.example.demo.post.controller.response.PostResponse;
 import com.example.demo.post.service.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,9 +22,9 @@ public class PostCreateController {
     private final PostController postController;
 
     @PostMapping
-    public ResponseEntity<PostResponse> createPost(@RequestBody PostCreateDto postCreateDto) {
+    public ResponseEntity<PostResponse> createPost(@RequestBody PostCreate postCreate) {
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(postController.toResponse(postService.create(postCreateDto)));
+            .body(postController.toResponse(postService.create(postCreate)));
     }
 }

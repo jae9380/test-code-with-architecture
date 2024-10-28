@@ -1,8 +1,8 @@
 package com.example.demo.post.controller;
 
-import com.example.demo.post.dto.PostUpdateDto;
+import com.example.demo.post.domain.PostUpdate;
 import com.example.demo.post.entity.PostEntity;
-import com.example.demo.post.repository.PostRepository;
+import com.example.demo.post.infrastructure.PostJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ class PostControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private PostRepository postRepository;
+    private PostJpaRepository postJpaRepository;
     private final ObjectMapper objectMapper=new ObjectMapper();
     @Test
     void Post_id를_통하여_Post를_불러오기() throws Exception {
@@ -60,7 +60,7 @@ class PostControllerTest {
     @Test
     void Post_id를_통하여_Post를_변경하기() throws Exception {
 //        given
-        PostUpdateDto dto = PostUpdateDto.builder()
+        PostUpdate dto = PostUpdate.builder()
                 .content("Hi, There")
                 .build();
 //        when
@@ -73,11 +73,7 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.content").value("Hi, There"))
                 .andExpect(jsonPath("$.writer.email").value("ljy5314@gmail.com"));
 
-        PostEntity entity = postRepository.findById(1l).get();
+        PostEntity entity = postJpaRepository.findById(1l).get();
         assertThat(entity.getModifiedAt()).isGreaterThan(1730026042857l);
-    }
-
-    @Test
-    void toResponse() {
     }
 }

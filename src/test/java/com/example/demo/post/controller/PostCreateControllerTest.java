@@ -1,6 +1,6 @@
 package com.example.demo.post.controller;
 
-import com.example.demo.post.dto.PostCreateDto;
+import com.example.demo.post.domain.PostCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ class PostCreateControllerTest {
     @Test
     void PostCreatDto_Post_생성() throws Exception{
 //        given
-        PostCreateDto dto = PostCreateDto.builder()
+        PostCreate dto = PostCreate.builder()
                 .writerId(1)
                 .content("Hello, World")
                 .build();

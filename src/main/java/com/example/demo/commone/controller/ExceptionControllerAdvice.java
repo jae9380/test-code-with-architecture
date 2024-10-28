@@ -1,10 +1,10 @@
-package com.example.demo.util.exception.controller;
+package com.example.demo.commone.controller;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-import com.example.demo.util.exception.exception.CertificationCodeNotMatchedException;
-import com.example.demo.util.exception.exception.ResourceNotFoundException;
+import com.example.demo.commone.domain.exception.CertificationCodeNotMatchedException;
+import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

@@ -1,12 +1,11 @@
 package com.example.demo.user.service;
 
-import com.example.demo.util.exception.exception.CertificationCodeNotMatchedException;
-import com.example.demo.util.exception.exception.ResourceNotFoundException;
+import com.example.demo.commone.domain.exception.CertificationCodeNotMatchedException;
+import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.entity.type.UserStatus;
-import com.example.demo.user.dto.UserCreateDto;
-import com.example.demo.user.dto.UserUpdateDto;
+import com.example.demo.user.domain.UserCreate;
+import com.example.demo.user.domain.UserUpdate;
 import com.example.demo.user.entity.UserEntity;
-import com.example.demo.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +77,7 @@ class UserServiceTest {
     @Test
     void userCreateDto_유저_생성() {
 //        given
-        UserCreateDto dto = UserCreateDto.builder()
+        UserCreate dto = UserCreate.builder()
                 .email("ljy531@naver.com")
                 .address("Andong")
                 .nickname("Lee")
@@ -98,7 +97,7 @@ class UserServiceTest {
     @Test
     void userUpdateDto_유저_생성() {
 //        given
-        UserUpdateDto dto = UserUpdateDto.builder()
+        UserUpdate dto = UserUpdate.builder()
                 .address("Daegu")
                 .nickname("Jae")
                 .build();

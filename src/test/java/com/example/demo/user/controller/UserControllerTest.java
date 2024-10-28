@@ -1,9 +1,9 @@
 package com.example.demo.user.controller;
 
 import com.example.demo.user.entity.type.UserStatus;
-import com.example.demo.user.dto.UserUpdateDto;
+import com.example.demo.user.domain.UserUpdate;
 import com.example.demo.user.entity.UserEntity;
-import com.example.demo.user.repository.UserRepository;
+import com.example.demo.user.infrastructure.UserJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     private final ObjectMapper objectMapper=new ObjectMapper();
 
@@ -68,7 +68,7 @@ class UserControllerTest {
         mockMvc.perform(get("/api/users/2/verify")
                 .queryParam("certificationCode", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaab"))
                 .andExpect(status().isFound());
-        UserEntity entity = userRepository.findById(2l).get();
+        UserEntity entity = userJpaRepository.findById(2l).get();
         assertThat(entity.getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
@@ -80,7 +80,7 @@ class UserControllerTest {
         mockMvc.perform(get("/api/users/2/verify")
                         .queryParam("certificationCode", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa"))
                 .andExpect(status().isForbidden());
-        UserEntity entity = userRepository.findById(2l).get();
+        UserEntity entity = userJpaRepository.findById(2l).get();
         assertThat(entity.getStatus()).isEqualTo(UserStatus.PENDING);
     }
 
@@ -104,7 +104,7 @@ class UserControllerTest {
     @Test
     void 사용자_자신의_정보를_수정할_수_있다() throws Exception {
 //        given
-        UserUpdateDto dto = UserUpdateDto.builder()
+        UserUpdate dto = UserUpdate.builder()
                 .nickname("Dell")
                 .address("Space")
                 .build();
