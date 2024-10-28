@@ -112,16 +112,4 @@ class UserControllerTest {
                         + "\"status\": \"ACTIVE\""
                         + "}"));
     }
-
-    @Test
-    void updateMyInfo() {
-    }
-
-    @Test
-    void toResponse() {
-    }
-
-    @Test
-    void toMyProfileResponse() {
-    }
 }
