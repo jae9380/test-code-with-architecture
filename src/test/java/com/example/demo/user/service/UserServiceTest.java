@@ -2,10 +2,10 @@ package com.example.demo.user.service;
 
 import com.example.demo.commone.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.commone.domain.exception.ResourceNotFoundException;
-import com.example.demo.user.entity.type.UserStatus;
+import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserUpdate;
-import com.example.demo.user.entity.UserEntity;
+import com.example.demo.user.infrastructure.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.example.demo.user.infrastructure;
 
-import com.example.demo.user.entity.type.UserStatus;
-import com.example.demo.user.entity.UserEntity;
+import com.example.demo.user.infrastructure.entity.type.UserStatus;
+import com.example.demo.user.infrastructure.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

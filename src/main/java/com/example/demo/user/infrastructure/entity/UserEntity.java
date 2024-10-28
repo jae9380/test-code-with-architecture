@@ -1,6 +1,6 @@
-package com.example.demo.user.entity;
+package com.example.demo.user.infrastructure.entity;
 
-import com.example.demo.user.entity.type.UserStatus;
+import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

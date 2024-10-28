@@ -2,7 +2,7 @@ package com.example.demo.user.controller;
 
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.controller.response.UserResponse;
-import com.example.demo.user.entity.UserEntity;
+import com.example.demo.user.infrastructure.entity.UserEntity;
 import com.example.demo.user.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

@@ -3,7 +3,7 @@ package com.example.demo.post.service;
 import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import com.example.demo.post.domain.PostCreate;
 import com.example.demo.post.domain.PostUpdate;
-import com.example.demo.post.entity.PostEntity;
+import com.example.demo.post.infrastructure.entity.PostEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

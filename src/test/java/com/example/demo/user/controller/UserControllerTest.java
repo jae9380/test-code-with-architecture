@@ -1,8 +1,8 @@
 package com.example.demo.user.controller;
 
-import com.example.demo.user.entity.type.UserStatus;
+import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import com.example.demo.user.domain.UserUpdate;
-import com.example.demo.user.entity.UserEntity;
+import com.example.demo.user.infrastructure.entity.UserEntity;
 import com.example.demo.user.infrastructure.UserJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

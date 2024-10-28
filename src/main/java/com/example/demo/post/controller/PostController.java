@@ -2,7 +2,7 @@ package com.example.demo.post.controller;
 
 import com.example.demo.post.controller.response.PostResponse;
 import com.example.demo.post.domain.PostUpdate;
-import com.example.demo.post.entity.PostEntity;
+import com.example.demo.post.infrastructure.entity.PostEntity;
 import com.example.demo.post.service.PostService;
 import com.example.demo.user.controller.UserController;
 import io.swagger.v3.oas.annotations.tags.Tag;
