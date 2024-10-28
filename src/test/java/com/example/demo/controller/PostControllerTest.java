@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.dto.PostUpdateDto;
-import com.example.demo.repository.PostEntity;
-import com.example.demo.repository.PostRepository;
+import com.example.demo.post.dto.PostUpdateDto;
+import com.example.demo.post.entity.PostEntity;
+import com.example.demo.post.repository.PostRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

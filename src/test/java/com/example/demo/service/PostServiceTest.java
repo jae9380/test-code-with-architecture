@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.dto.PostCreateDto;
-import com.example.demo.model.dto.PostUpdateDto;
-import com.example.demo.repository.PostEntity;
+import com.example.demo.util.exception.exception.ResourceNotFoundException;
+import com.example.demo.post.dto.PostCreateDto;
+import com.example.demo.post.dto.PostUpdateDto;
+import com.example.demo.post.entity.PostEntity;
+import com.example.demo.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,6 @@ import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @SqlGroup({
