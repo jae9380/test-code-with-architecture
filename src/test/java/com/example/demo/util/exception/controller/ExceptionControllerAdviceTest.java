@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.util.exception.controller;
 
 import org.junit.jupiter.api.Test;
 

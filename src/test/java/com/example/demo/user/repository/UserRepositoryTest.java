@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.user.repository;
 
 import com.example.demo.user.entity.type.UserStatus;
 import com.example.demo.user.entity.UserEntity;

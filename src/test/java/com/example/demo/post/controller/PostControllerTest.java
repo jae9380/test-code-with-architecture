@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.post.controller;
 
 import com.example.demo.post.dto.PostUpdateDto;
 import com.example.demo.post.entity.PostEntity;

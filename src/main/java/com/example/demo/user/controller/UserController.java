@@ -1,7 +1,7 @@
 package com.example.demo.user.controller;
 
-import com.example.demo.user.dto.MyProfileResponse;
-import com.example.demo.user.dto.UserResponse;
+import com.example.demo.user.controller.response.MyProfileResponse;
+import com.example.demo.user.controller.response.UserResponse;
 import com.example.demo.user.dto.UserUpdateDto;
 import com.example.demo.user.entity.UserEntity;
 import com.example.demo.user.service.UserService;

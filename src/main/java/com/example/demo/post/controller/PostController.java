@@ -1,6 +1,6 @@
 package com.example.demo.post.controller;
 
-import com.example.demo.post.dto.PostResponse;
+import com.example.demo.post.controller.response.PostResponse;
 import com.example.demo.post.dto.PostUpdateDto;
 import com.example.demo.post.entity.PostEntity;
 import com.example.demo.post.service.PostService;
