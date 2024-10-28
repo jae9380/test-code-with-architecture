@@ -74,6 +74,18 @@ class UserControllerTest {
     }
 
     @Test
+    void 사용자는_인증_코드로_계정_상태를_ACTIVE로_갱신_실패() throws Exception {
+//        given
+//        when
+//        then
+        mockMvc.perform(get("/api/users/2/verify")
+                        .queryParam("certificationCode", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa"))
+                .andExpect(status().isForbidden());
+        UserEntity entity = userRepository.findById(2l).get();
+        assertThat(entity.getStatus()).isEqualTo(UserStatus.PENDING);
+    }
+
+    @Test
     void 사용자_자신의_정보를_불러오기() throws Exception {
 //        given
 //        when
