@@ -1,11 +1,7 @@
 package com.example.demo.user.service;
 
-import com.example.demo.user.infrastructure.MailSenderImpl;
-import com.example.demo.user.infrastructure.entity.UserEntity;
 import com.example.demo.user.service.port.MailSender;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service

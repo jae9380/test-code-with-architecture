@@ -1,3 +1,6 @@
+server:
+  port: 8111
+
 spring:
   h2:
     console:
