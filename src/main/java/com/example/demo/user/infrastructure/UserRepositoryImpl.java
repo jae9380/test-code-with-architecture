@@ -1,5 +1,6 @@
 package com.example.demo.user.infrastructure;
 
+import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.infrastructure.entity.UserEntity;
 import com.example.demo.user.infrastructure.entity.type.UserStatus;
@@ -14,6 +15,11 @@ import java.util.Optional;
 public class UserRepositoryImpl implements UserRepository{
 
     private final UserJpaRepository userJpaRepository;
+
+    @Override
+    public User getById(long id) {
+        return findById(id).orElseThrow(() -> new ResourceNotFoundException("User",id));
+    }
 
     @Override
     public Optional<User> findById(long id) {

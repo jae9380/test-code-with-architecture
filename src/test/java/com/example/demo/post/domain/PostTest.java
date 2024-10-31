@@ -1,5 +1,6 @@
 package com.example.demo.post.domain;
 
+import com.example.demo.mock.TestClockHolder;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import org.junit.jupiter.api.Test;
@@ -28,13 +29,14 @@ class PostTest {
                 .build();
 
 //        when
-        Post post = Post.from(writer, postCreate);
+        Post result = Post.from(writer, postCreate, new TestClockHolder(1730026042850L));
 
 //        then
-        assertThat(post.getContent()).isEqualTo("Hello, World");
-        assertThat(post.getCreatedAt()).isGreaterThan(0l);
-        assertThat(post.getWriter().getEmail()).isEqualTo("ljy5314@gmail.com");
-        assertThat(post.getWriter().getStatus()).isEqualTo(UserStatus.ACTIVE);
+        assertThat(result.getContent()).isEqualTo("Hello, World");
+        assertThat(result.getCreatedAt()).isGreaterThan(0l);
+        assertThat(result.getCreatedAt()).isEqualTo(1730026042850L);
+        assertThat(result.getWriter().getEmail()).isEqualTo("ljy5314@gmail.com");
+        assertThat(result.getWriter().getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
     @Test
@@ -53,17 +55,18 @@ class PostTest {
                 .certificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa")
                 .build();
 
-        Post post = Post.from(writer, postCreate);
+        Post post = Post.from(writer, postCreate, new TestClockHolder(1730026042850L));
 
         PostUpdate postUpdate = PostUpdate.builder()
                 .content("Hi, There").build();
 
 //        when
-        post = post.update(postUpdate);
+        post = post.update(postUpdate, new TestClockHolder(1730026042857L));
 
 //        then
         assertThat(post.getContent()).isEqualTo("Hi, There");
-        assertThat(post.getModifiedAt()).isNotNull();
+        assertThat(post.getCreatedAt()).isEqualTo(1730026042850L);
+        assertThat(post.getModifiedAt()).isEqualTo( 1730026042857L);
 
     }
 }

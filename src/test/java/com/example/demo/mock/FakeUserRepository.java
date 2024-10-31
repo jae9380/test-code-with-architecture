@@ -1,5 +1,6 @@
 package com.example.demo.mock;
 
+import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import com.example.demo.user.service.port.UserRepository;
@@ -12,6 +13,12 @@ import java.util.concurrent.atomic.AtomicLong;
 public class FakeUserRepository implements UserRepository {
     private Long aLong = 0L;
     private final ArrayList<User> data = new ArrayList<>();
+
+    @Override
+    public User getById(long id) {
+        return findById(id).orElseThrow(() -> new ResourceNotFoundException("User",id));
+    }
+
     @Override
     public Optional<User> findById(long id) {
         return data.stream()
