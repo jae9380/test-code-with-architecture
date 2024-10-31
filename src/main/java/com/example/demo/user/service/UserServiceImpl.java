@@ -3,20 +3,20 @@ package com.example.demo.user.service;
 import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import com.example.demo.commone.service.port.ClockHolder;
 import com.example.demo.commone.service.port.UuidHolder;
+import com.example.demo.user.controller.port.*;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserUpdate;
 
 import com.example.demo.user.service.port.UserRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserReadService, UserCreateService, UserUpdateService, UserAuthenticationService {
 
     private final UserRepository userRepository;
     private final CertificationService certificationService;

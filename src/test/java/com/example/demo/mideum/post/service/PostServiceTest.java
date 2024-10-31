@@ -4,8 +4,7 @@ import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import com.example.demo.post.domain.Post;
 import com.example.demo.post.domain.PostCreate;
 import com.example.demo.post.domain.PostUpdate;
-import com.example.demo.post.infrastructure.entity.PostEntity;
-import com.example.demo.post.service.PostService;
+import com.example.demo.post.service.PostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class PostServiceTest {
 
     @Autowired
-    PostService postService;
+    PostServiceImpl postService;
 
     @Test
     void getById를_통하여_Post_불러오기() {

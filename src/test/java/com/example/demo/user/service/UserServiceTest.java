@@ -15,14 +15,6 @@ import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import com.example.demo.user.service.port.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -30,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 class UserServiceTest {
 
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @BeforeEach
     public void init() {
@@ -60,7 +52,7 @@ class UserServiceTest {
                 .lastLoginAt(0L)
                 .build());
 
-        userService = new UserService(userRepository, certificationService, uuidHolder, clockHolder);
+        userService = new UserServiceImpl(userRepository, certificationService, uuidHolder, clockHolder);
     }
 
     @Test

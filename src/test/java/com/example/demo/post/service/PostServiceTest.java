@@ -2,7 +2,6 @@ package com.example.demo.post.service;
 
 import com.example.demo.commone.domain.exception.ResourceNotFoundException;
 import com.example.demo.commone.service.port.ClockHolder;
-import com.example.demo.commone.service.port.UuidHolder;
 import com.example.demo.mock.*;
 import com.example.demo.post.domain.Post;
 import com.example.demo.post.domain.PostCreate;
@@ -10,22 +9,16 @@ import com.example.demo.post.domain.PostUpdate;
 import com.example.demo.post.service.port.PostRepository;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.infrastructure.entity.type.UserStatus;
-import com.example.demo.user.service.CertificationService;
-import com.example.demo.user.service.UserService;
 import com.example.demo.user.service.port.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PostServiceTest {
 
-    private PostService postService;
+    private PostServiceImpl postService;
 
     @BeforeEach
     public void init() {
@@ -63,7 +56,7 @@ class PostServiceTest {
                 .writer(user1)
                 .build());
 
-        postService = new PostService(postRepository, userRepository, clockHolder);
+        postService = new PostServiceImpl(postRepository, userRepository, clockHolder);
     }
 
     @Test
