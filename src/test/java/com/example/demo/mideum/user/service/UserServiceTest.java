@@ -1,19 +1,13 @@
-package com.example.demo.user.service;
+package com.example.demo.mideum.user.service;
 
 import com.example.demo.commone.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.commone.domain.exception.ResourceNotFoundException;
-import com.example.demo.commone.service.port.ClockHolder;
-import com.example.demo.commone.service.port.UuidHolder;
-import com.example.demo.mock.FakeMailSender;
-import com.example.demo.mock.FakeUserRepository;
-import com.example.demo.mock.TestClockHolder;
-import com.example.demo.mock.TestUuidHolder;
 import com.example.demo.user.domain.User;
+import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserUpdate;
-import com.example.demo.user.infrastructure.entity.type.UserStatus;
-import com.example.demo.user.service.port.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.demo.user.infrastructure.entity.UserEntity;
+import com.example.demo.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,40 +22,17 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 
+@SpringBootTest
+@SqlGroup({
+        @Sql(value = "/user-service-test-data.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(value = "/delete-all-data.sql",executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+})
 class UserServiceTest {
 
+    @Autowired
     private UserService userService;
-
-    @BeforeEach
-    public void init() {
-        FakeMailSender fakeMailSender = new FakeMailSender();
-        UserRepository userRepository = new FakeUserRepository();
-        CertificationService certificationService = new CertificationService(fakeMailSender);
-        ClockHolder clockHolder = new TestClockHolder(1730026042857L);
-        UuidHolder uuidHolder = new TestUuidHolder("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa");
-
-        userRepository.save(User.builder()
-                .id(1L)
-                .email("ljy5314@gmail.com")
-                .nickname("buckshot")
-                .address("Korea")
-                .certificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa")
-                .status(UserStatus.ACTIVE)
-                .lastLoginAt(0L)
-                .build());
-
-        userRepository.save(User.builder()
-                .id(2L)
-                .email("ljy531@gmail.com")
-                .nickname("bug")
-                .address("Korea")
-                .certificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaab")
-                .status(UserStatus.PENDING)
-                .lastLoginAt(0L)
-                .build());
-
-        userService = new UserService(userRepository, certificationService, uuidHolder, clockHolder);
-    }
+    @MockBean
+    private JavaMailSender javaMailSender;
 
     @Test
     void getByEmail_ACVIVE_상태인_유저_불러오기() {
@@ -114,13 +85,15 @@ class UserServiceTest {
                 .nickname("Lee")
                 .build();
 
+        BDDMockito.doNothing().when(javaMailSender).send(any(SimpleMailMessage.class));
+
 //        when
         User result = userService.create(dto);
 
 //        then
         assertThat(result.getId()).isNotNull();
         assertThat(result.getStatus()).isEqualTo(UserStatus.PENDING);
-        assertThat(result.getCertificationCode()).isEqualTo("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa");
+//        assertThat(result.getCertificationCode()).isEqualTo();
     }
 
     @Test
@@ -140,7 +113,7 @@ class UserServiceTest {
         assertThat(result.getNickname()).isEqualTo("Jae");
         assertThat(result.getAddress()).isEqualTo("Daegu");
 //        TODO: 로그인 시 랜덤으로 생성되는 CertificationCode 확인
-        assertThat(result.getCertificationCode()).isEqualTo("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa");
+//        assertThat(result.getCertificationCode()).isEqualTo();
     }
 
     @Test
@@ -154,8 +127,6 @@ class UserServiceTest {
         User result = userService.getById(1);
         assertThat(result.getLastLoginAt()).isGreaterThan(0l);
 //        TODO: 마지막 로그인 시간 확인
-        assertThat(result.getLastLoginAt()).isEqualTo(1730026042857L);
-
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.example.demo.post.controller;
+package com.example.demo.mideum.post.controller;
 
 import com.example.demo.post.domain.PostUpdate;
 import com.example.demo.post.infrastructure.entity.PostEntity;

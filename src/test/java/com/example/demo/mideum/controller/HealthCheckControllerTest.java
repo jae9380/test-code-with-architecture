@@ -1,4 +1,4 @@
-package com.example.demo.commone.controller;
+package com.example.demo.mideum.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

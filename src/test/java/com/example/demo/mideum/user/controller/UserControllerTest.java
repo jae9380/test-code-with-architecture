@@ -1,4 +1,4 @@
-package com.example.demo.user.controller;
+package com.example.demo.mideum.user.controller;
 
 import com.example.demo.user.infrastructure.entity.type.UserStatus;
 import com.example.demo.user.domain.UserUpdate;
