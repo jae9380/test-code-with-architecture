@@ -2,35 +2,20 @@ package com.example.demo.user.controller;
 
 import com.example.demo.commone.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.commone.domain.exception.ResourceNotFoundException;
-import com.example.demo.mock.TestClockHolder;
 import com.example.demo.mock.TestContainer;
-import com.example.demo.user.controller.port.UserReadService;
 import com.example.demo.user.controller.response.MyProfileResponse;
 import com.example.demo.user.controller.response.UserResponse;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserUpdate;
-import com.example.demo.user.infrastructure.UserJpaRepository;
-import com.example.demo.user.infrastructure.entity.UserEntity;
 import com.example.demo.user.infrastructure.entity.type.UserStatus;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class UserControllerTest {
 
@@ -50,10 +35,7 @@ class UserControllerTest {
                 .build());
 
 //        when
-        ResponseEntity<UserResponse> result = UserController.builder()
-                .userReadService(testContainer.userReadService)
-                .build()
-                .getUserById(1);
+        ResponseEntity<UserResponse> result = testContainer.userController.getUserById(1);
 
 //        then
         assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
@@ -71,10 +53,7 @@ class UserControllerTest {
 //        when
 //        then
         assertThatThrownBy(()->{
-            UserController.builder()
-                    .userReadService(testContainer.userReadService)
-                    .build()
-                    .getUserById(1);
+            testContainer.userController.getUserById(1);
         }).isInstanceOf(ResourceNotFoundException.class);
     }
 

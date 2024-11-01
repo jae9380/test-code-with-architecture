@@ -9,10 +9,6 @@ import com.example.demo.post.service.PostServiceImpl;
 import com.example.demo.post.service.port.PostRepository;
 import com.example.demo.user.controller.UserController;
 import com.example.demo.user.controller.UserCreateController;
-import com.example.demo.user.controller.port.UserReadService;
-import com.example.demo.user.controller.port.UserUpdateService;
-import com.example.demo.user.controller.port.UserCreateService;
-import com.example.demo.user.controller.port.UserAuthenticationService;
 import com.example.demo.user.service.CertificationService;
 import com.example.demo.user.service.UserServiceImpl;
 import com.example.demo.user.service.port.MailSender;
@@ -22,11 +18,6 @@ import lombok.Builder;
 public class TestContainer {
     public final UserRepository userRepository;
     public final PostRepository postRepository;
-    public final UserReadService userReadService;
-    public final UserCreateService userCreateService;
-    public final UserUpdateService userUpdateService;
-    public final UserAuthenticationService userAuthenticationService;
-
     public final PostService postService;
     public final MailSender mailSender;
     public final CertificationService certificationService;
@@ -52,16 +43,8 @@ public class TestContainer {
                 uuidHolder,
                 clockHolder
         );
-        this.userReadService = userService;
-        this.userCreateService = userService;
-        this.userUpdateService = userService;
-        this.userAuthenticationService = userService;
-        this.userController=new UserController(
-                this.userReadService,
-                this.userAuthenticationService,
-                this.userUpdateService
-        );
-        this.userCreateController = new UserCreateController(this.userCreateService);
+        this.userController=new UserController(userService);
+        this.userCreateController = new UserCreateController(userService);
         this.postCreateController = new PostCreateController(this.postService);
         this.postController = new PostController(this.postService);
     }
